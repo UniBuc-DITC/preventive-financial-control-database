@@ -44,7 +44,7 @@ CREATE TABLE
         VALUE NUMERIC(15, 2) NOT NULL,
         payment_method_id INTEGER NOT NULL,
         beneficiary TEXT NOT NULL,
-        invoice TEXT NOT NULL,
+        invoice TEXT,
         noncompliance TEXT,
         remarks TEXT,
         created_by_user_id INTEGER DEFAULT 0 NOT NULL CONSTRAINT expenditures_users_id_fk REFERENCES users,
