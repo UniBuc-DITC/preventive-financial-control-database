@@ -1,0 +1,3 @@
+CREATE SEQUENCE years_sequence AS INTEGER START
+WITH
+    2024;

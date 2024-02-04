@@ -4,6 +4,13 @@ CREATE TABLE
         NAME TEXT NOT NULL
     );
 
+CREATE VIEW
+    current_year (VALUE) AS
+SELECT
+    LAST_VALUE AS VALUE
+FROM
+    years_sequence;
+
 CREATE TABLE
     financing_sources (
         id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
