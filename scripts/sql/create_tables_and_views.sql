@@ -78,3 +78,13 @@ CREATE TABLE
             check_project_category (financing_source_id, project_category_id)
         )
     );
+
+CREATE TABLE
+    activities (
+        id INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT activities_pk PRIMARY KEY,
+        TIMESTAMP TIMESTAMP WITH TIME ZONE NOT NULL,
+        target_object_id TEXT NOT NULL,
+        action_type TEXT NOT NULL,
+        target_table_name TEXT NOT NULL,
+        user_name TEXT NOT NULL
+    );

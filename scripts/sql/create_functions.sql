@@ -55,3 +55,23 @@ CREATE FUNCTION allocate_commitment_number () RETURNS TRIGGER LANGUAGE plpgsql A
         RETURN NEW;
     END;
 $$;
+
+-- Function to log activity upon performing insertion/update/deletion on table.
+CREATE
+OR REPLACE FUNCTION log_activity () RETURNS TRIGGER LANGUAGE plpgsql AS $$
+    DECLARE
+        target_object_id text;
+    BEGIN
+        IF TG_TABLE_NAME IN ('expenditures', 'commitments')
+        THEN
+            target_object_id := CONCAT(NEW.number, '/', NEW.year);
+        ELSE
+            target_object_id := NEW.id::text;
+        END IF;
+
+        INSERT INTO activities (timestamp, user_name, action_type, target_table_name, target_object_id)
+        VALUES (CURRENT_TIMESTAMP, CURRENT_USER, TG_OP, TG_TABLE_NAME, target_object_id);
+
+        RETURN NULL;
+    END;
+$$;
