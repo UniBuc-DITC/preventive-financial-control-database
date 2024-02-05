@@ -10,3 +10,9 @@ $$;
 
 CREATE TRIGGER set_created_by_user_id BEFORE INSERT ON expenditures FOR EACH ROW
 EXECUTE FUNCTION set_created_by_user_id ();
+
+CREATE TRIGGER allocate_expenditure_number BEFORE INSERT ON expenditures FOR EACH ROW
+EXECUTE PROCEDURE allocate_expenditure_number ();
+
+CREATE TRIGGER allocate_commitment_number BEFORE INSERT ON commitments FOR EACH ROW
+EXECUTE PROCEDURE allocate_commitment_number ();

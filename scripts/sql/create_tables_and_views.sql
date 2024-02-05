@@ -45,7 +45,7 @@ CREATE TABLE
         expenditure_article_id INTEGER NOT NULL CONSTRAINT expenditures_expenditure_articles_id_fk REFERENCES expenditure_articles,
         project_category_id INTEGER CONSTRAINT expenditures_project_categories_id_fk REFERENCES project_categories,
         details TEXT NOT NULL,
-        expenditure_type TEXT NOT NULL,
+        procurement_type TEXT NOT NULL,
         ordinance_number TEXT NOT NULL,
         ordinance_date date NOT NULL,
         VALUE NUMERIC(15, 2) NOT NULL,
@@ -56,6 +56,24 @@ CREATE TABLE
         remarks TEXT,
         created_by_user_id INTEGER DEFAULT 0 NOT NULL CONSTRAINT expenditures_users_id_fk REFERENCES users,
         CONSTRAINT expenditures_pk PRIMARY KEY (YEAR, number),
+        CONSTRAINT check_project_category CHECK (
+            check_project_category (financing_source_id, project_category_id)
+        )
+    );
+
+CREATE TABLE
+    commitments (
+        YEAR INTEGER DEFAULT 0 NOT NULL,
+        number INTEGER DEFAULT 0 NOT NULL,
+        registration_date date DEFAULT CURRENT_DATE NOT NULL,
+        financing_source_id INTEGER NOT NULL CONSTRAINT commitments_financing_sources_id_fk REFERENCES financing_sources,
+        project_category_id INTEGER CONSTRAINT commitments_project_categories_id_fk REFERENCES project_categories,
+        procurement_type TEXT,
+        partner TEXT,
+        VALUE NUMERIC(15, 2),
+        remarks TEXT,
+        created_by_user_id INTEGER NOT NULL,
+        CONSTRAINT commitments_pk PRIMARY KEY (YEAR, number),
         CONSTRAINT check_project_category CHECK (
             check_project_category (financing_source_id, project_category_id)
         )
