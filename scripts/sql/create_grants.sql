@@ -42,6 +42,10 @@ SELECT
 
 GRANT INSERT ON expenditures TO employee;
 
+GRANT
+SELECT
+    ON ALL TABLES IN SCHEMA audit TO employee;
+
 -- Supervisor permissions
 GRANT INSERT ON financing_sources TO supervisor;
 
