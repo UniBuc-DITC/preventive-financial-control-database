@@ -11,6 +11,16 @@ SELECT
 FROM
     years_sequence;
 
+CREATE VIEW
+    current_user_info (id, NAME) AS
+SELECT
+    id,
+    NAME
+FROM
+    users
+WHERE
+    NAME = CURRENT_USER;
+
 CREATE TABLE
     financing_sources (
         id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -66,11 +76,14 @@ CREATE TABLE
         YEAR INTEGER DEFAULT 0 NOT NULL,
         number INTEGER DEFAULT 0 NOT NULL,
         registration_date date DEFAULT CURRENT_DATE NOT NULL,
+        document_number TEXT,
+        validity TEXT,
         financing_source_id INTEGER NOT NULL CONSTRAINT commitments_financing_sources_id_fk REFERENCES financing_sources,
         project_category_id INTEGER CONSTRAINT commitments_project_categories_id_fk REFERENCES project_categories,
-        procurement_type TEXT,
+        expenditure_article_id INTEGER NOT NULL CONSTRAINT commitments_expenditure_articles_id_fk REFERENCES expenditure_articles,
         partner TEXT,
         VALUE NUMERIC(15, 2),
+        procurement_type TEXT,
         remarks TEXT,
         created_by_user_id INTEGER NOT NULL CONSTRAINT commitments_users_id_fk REFERENCES users,
         noncompliance TEXT,
